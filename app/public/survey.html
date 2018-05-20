@@ -172,18 +172,18 @@
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Your Match!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
-                    <div class="modal-body"></div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
                 </div>
             </div>
         </form>
@@ -200,6 +200,7 @@
 </html>
 
 <script type="text/javascript">
+$(document).ready(function(){
     //submit click will add new friend to the friends data list and compare added friend to stored friends and find the most similar in scores
     $("#submit").on("click", function(event){
         event.preventDefault();
@@ -269,7 +270,11 @@
                     friendIndex = i;
                 }
             }
-            
+            $(".modal-body").html(`
+                <h1>${data[friendIndex].friendName}</h1>
+                <img src="${data[friendIndex].friendPhoto}" width="400px"/>
+            `);
         });
     }
+});
 </script>
