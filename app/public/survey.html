@@ -29,7 +29,7 @@
         <form>
             <div class="col-auto my-1">
                 <h4>Question 1</h4>
-                <label class="mr-sm-2" for="q1">Your mind is always buzzing with unexplored ideas and plans.</label>
+                <label class="mr-sm-2" for="q1">I find myself walking slowly throughout the day thinking about food.</label>
                 <select class="custom-select mr-sm-2" id="q1">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -43,7 +43,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 2</h4>
-                <label class="mr-sm-2" for="q2">Generally speaking, you rely more on your experience than your imagination.</label>
+                <label class="mr-sm-2" for="q2">I often like to sleep during the day.</label>
                 <select class="custom-select mr-sm-2" id="q2">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -57,7 +57,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 3</h4>
-                <label class="mr-sm-2" for="q3">You find it easy to stay relaxed and focused even when there is some pressure.</label>
+                <label class="mr-sm-2" for="q3">Swimming is the highlight of my day.</label>
                 <select class="custom-select mr-sm-2" id="q3">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -71,7 +71,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 4</h4>
-                <label class="mr-sm-2" for="q4">You rarely do something just out of sheer curiosity.</label>
+                <label class="mr-sm-2" for="q4">My greatest ambition is to fly.</label>
                 <select class="custom-select mr-sm-2" id="q4">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -85,7 +85,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 5</h4>
-                <label class="mr-sm-2" for="q5">People can rarely upset you.</label>
+                <label class="mr-sm-2" for="q5">I find bugs and insects rather tastey.</label>
                 <select class="custom-select mr-sm-2" id="q5">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -99,7 +99,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 6</h4>
-                <label class="mr-sm-2" for="q6">It is often difficult for you to relate to other people's feelings.</label>
+                <label class="mr-sm-2" for="q6">I never loose hide and seek.</label>
                 <select class="custom-select mr-sm-2" id="q6">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -113,7 +113,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 7</h4>
-                <label class="mr-sm-2" for="q7">In a discussion, truth should be more important than people's sensitivites.</label>
+                <label class="mr-sm-2" for="q7">I get cold easily and like laying in the sun.</label>
                 <select class="custom-select mr-sm-2" id="q7">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -127,7 +127,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 8</h4>
-                <label class="mr-sm-2" for="q8">You rarely get carried away by fantasies and ideas.</label>
+                <label class="mr-sm-2" for="q8">Compared to friends, I'm rather tall.</label>
                 <select class="custom-select mr-sm-2" id="q8">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -141,7 +141,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 9</h4>
-                <label class="mr-sm-2" for="q9">You think that everyone's views should be respected regardless of whether they are supported by facts or not.</label>
+                <label class="mr-sm-2" for="q9">Sometimes, I can be quite noisey.</label>
                 <select class="custom-select mr-sm-2" id="q9">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -155,7 +155,7 @@
             <br>
             <div class="col-auto my-1">
                 <h4>Question 10</h4>
-                <label class="mr-sm-2" for="q10">You feel more energetic after spending time with a group of people.</label>
+                <label class="mr-sm-2" for="q10">When I want to, I can move pretty fast.</label>
                 <select class="custom-select mr-sm-2" id="q10">
                     <option selected>Choose...</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -204,29 +204,39 @@ $(document).ready(function(){
     //submit click will add new friend to the friends data list and compare added friend to stored friends and find the most similar in scores
     $("#submit").on("click", function(event){
         event.preventDefault();
-        var newFriend = {
-            friendName: $("#friend-name").val().trim(),
-            friendPhoto: $("#friend-photo").val().trim(),
-            scores: [
-                $("#q1").val(),
-                $("#q2").val(),
-                $("#q3").val(),
-                $("#q4").val(),
-                $("#q5").val(),
-                $("#q6").val(),
-                $("#q7").val(),
-                $("#q8").val(),
-                $("#q9").val(),
-                $("#q10").val()
-            ]
-        };
-        //new friend is added to the friends data list and input feilds are cleared
-        $.post("/api/friends", newFriend, function(data){
-            $("#friend-name").val("");
-            $("#friend-photo").val("");
-        });
+        var blank = false;
+        for (var i=1; i<10; i++){ //checks for blank answers
+            if($("#q1").val() === "Choose..."){
+                blank = true;
+            }
+        }
+        if (blank === true){
+            alert("Please answer all questions.");
+        }else{
+            var newFriend = {
+                friendName: $("#friend-name").val().trim(),
+                friendPhoto: $("#friend-photo").val().trim(),
+                scores: [
+                    $("#q1").val(),
+                    $("#q2").val(),
+                    $("#q3").val(),
+                    $("#q4").val(),
+                    $("#q5").val(),
+                    $("#q6").val(),
+                    $("#q7").val(),
+                    $("#q8").val(),
+                    $("#q9").val(),
+                    $("#q10").val()
+                ]
+            };
+            //new friend is added to the friends data list and input feilds are cleared
+            $.post("/api/friends", newFriend, function(data){
+                $("#friend-name").val("");
+                $("#friend-photo").val("");
+            });
 
-        findMatch();
+            findMatch();
+        }
     });
 
     //logic that finds most similar friend
